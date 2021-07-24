@@ -18,8 +18,8 @@ const update = (id, token) => {
   return User.findByIdAndUpdate(id, token)
 }
 
-const updateAvatar = (id, idCloudAvatar, avatar) => {
-  return User.findByIdAndUpdate(id, { idCloudAvatar, avatar })
+const updateAvatar = (id, idCloudAvatar, avatarURL) => {
+  return User.findByIdAndUpdate(id, { idCloudAvatar, avatarURL })
 }
 
 const getAvatar = (id) => {

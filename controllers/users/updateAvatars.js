@@ -1,16 +1,16 @@
 const { users: service } = require('../../services')
-const uploadCloud = require('../../configs/cloudinary-config')
+const uploadCloud = require('../../helpers/uploadAvatar')
 const fs = require('fs/promises')
 const cloudinary = require('cloudinary').v2
 
 const updateAvatars = async (req, res, next) => {
   const { _id } = req.user
   const pathFile = req.file.path
-  console.log(pathFile)
+
   try {
     const oldAvatar = await service.getAvatar(_id)
-    const { public_id: idCloudAvatar, secure_url: avatar } = await uploadCloud(pathFile)
-    const url = await service.updateAvatar(_id, idCloudAvatar, avatar)
+    const { public_id: idCloudAvatar, secure_url: avatarURL } = await uploadCloud(pathFile)
+    const url = await service.updateAvatar(_id, idCloudAvatar, avatarURL)
 
     if (!url || !req.user.token) {
       res.status(401).json({
