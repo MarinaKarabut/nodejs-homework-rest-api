@@ -1,5 +1,5 @@
 const getProfile = async (req, res, next) => {
-  const { email } = req.body
+  const { email } = req.user
   try {
     res.json({
       status: 'success',

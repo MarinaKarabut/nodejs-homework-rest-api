@@ -2,16 +2,20 @@ const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const path = require('path')
 require('dotenv').config()
 require('./configs/passport-config')
+const cloudinary = require('cloudinary').v2
 
-const upload = require('./helpers/multer')
-const addAvatarFunc = require('./helpers/addAvatarFunc')
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+  secure: true
+})
+
 const contactsRouter = require('./routes/api/contacts')
 const authRouter = require('./routes/api/auth')
 const usersRouter = require('./routes/api/users')
-const filesRouter = require('./routes/api/files')
 
 const app = express()
 
@@ -21,12 +25,9 @@ app.use(logger(formatsLogger))
 app.use(cors())
 app.use(express.json())
 
-app.use(express.static(path.join(__dirname, './public/avatars')))
-
 app.use('/api/v1/contacts', contactsRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', usersRouter)
-app.use('/api/v1/files', filesRouter, upload.single('avatar'), addAvatarFunc)
 
 app.use((req, res, next) => {
   res.status(404).json({
@@ -38,7 +39,7 @@ app.use((req, res, next) => {
 
 app.use((error, _, res, __) => {
   const { code = 500, message = 'Server error' } = error
-  res.status(code).json({
+  res.status(500).json({
     status: 'fail',
     code,
     message,

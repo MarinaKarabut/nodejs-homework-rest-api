@@ -9,6 +9,6 @@ const { users: ctrl } = require('../../controllers')
 const router = express.Router()
 
 router.get('/profile', useAuth, ctrl.getProfile)
-router.patch('/avatars', useAuth, upload.single('avatar'), ctrl.avatars)
+router.patch('/avatars', useAuth, upload.single('avatar'), ctrl.updateAvatars)
 
 module.exports = router

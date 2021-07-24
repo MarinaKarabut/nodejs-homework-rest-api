@@ -14,17 +14,17 @@ const findById = (id) => {
   return User.findById(id)
 }
 
-const update = (id, data) => {
-  return User.findByIdAndUpdate(id, data)
+const update = (id, token) => {
+  return User.findByIdAndUpdate(id, token)
 }
 
-const updateAvatar = (id, avatar, idCloudAvatar) => {
-  return User.findByIdAndUpdate(id, { avatarURL: avatar, idCloudAvatar })
+const updateAvatar = (id, idCloudAvatar, avatar) => {
+  return User.findByIdAndUpdate(id, { idCloudAvatar, avatar })
 }
 
 const getAvatar = (id) => {
-  const { idCloudAvatar, avatar } = User.findOne(id)
-  return { idCloudAvatar, avatar }
+  const result = User.findById(id)
+  return result
 }
 
 module.exports = {

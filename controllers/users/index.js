@@ -1,7 +1,7 @@
 const getProfile = require('./getProfile')
-const avatars = require('./avatars')
+const updateAvatars = require('./updateAvatars')
 
 module.exports = {
   getProfile,
-  avatars
+  updateAvatars
 }

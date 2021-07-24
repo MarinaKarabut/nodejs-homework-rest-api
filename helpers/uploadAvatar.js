@@ -1,12 +1,4 @@
 const cloudinary = require('cloudinary').v2
-// require('dotenv').config()
-
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.API_SECRET,
-//   secure: true
-// })
 
 const uploadCloud = (pathFile) => {
   return new Promise((resolve, reject) => {
@@ -19,12 +11,14 @@ const uploadCloud = (pathFile) => {
     },
     (error, result) => {
       console.log(result)
-      if (error) { reject(error) }
-      if (result) { resolve(result) }
+      if (error) {
+        reject(error)
+      }
+      if (result) {
+        resolve(result)
+      }
     })
   })
 }
 
-module.exports = {
-  uploadCloud,
-}
+module.exports = uploadCloud
