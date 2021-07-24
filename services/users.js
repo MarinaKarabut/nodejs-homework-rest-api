@@ -1,7 +1,7 @@
 const { User } = require('../models')
 
-const getOne = () => {
-  return User.findOne()
+const getOne = (filter) => {
+  return User.findOne(filter)
 }
 
 const add = ({ password, ...data }) => {
