@@ -12,7 +12,7 @@ const useAuth = (req, res, next) => {
     }
     req.user = user
     next()
-  })
+  })(req, res, next)
 }
 
 module.exports = useAuth

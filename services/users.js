@@ -1,7 +1,7 @@
 const { User } = require('../models')
 
-const getOne = () => {
-  return User.findOne()
+const getOne = (filter) => {
+  return User.findOne(filter)
 }
 
 const add = ({ password, ...data }) => {
@@ -14,13 +14,24 @@ const findById = (id) => {
   return User.findById(id)
 }
 
-const update = (id, data) => {
-  return User.findByIdAndUpdate(id, data)
+const update = (id, token) => {
+  return User.findByIdAndUpdate(id, token)
+}
+
+const updateAvatar = (id, idCloudAvatar, avatarURL) => {
+  return User.findByIdAndUpdate(id, { idCloudAvatar, avatarURL })
+}
+
+const getAvatar = (id) => {
+  const result = User.findById(id)
+  return result
 }
 
 module.exports = {
   getOne,
   add,
   findById,
-  update
+  update,
+  updateAvatar,
+  getAvatar
 }

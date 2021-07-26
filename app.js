@@ -4,6 +4,14 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
 require('./configs/passport-config')
+const cloudinary = require('cloudinary').v2
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+  secure: true
+})
 
 const contactsRouter = require('./routes/api/contacts')
 const authRouter = require('./routes/api/auth')
@@ -31,7 +39,7 @@ app.use((req, res, next) => {
 
 app.use((error, _, res, __) => {
   const { code = 500, message = 'Server error' } = error
-  res.status(code).json({
+  res.status(500).json({
     status: 'fail',
     code,
     message,
