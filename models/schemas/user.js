@@ -34,7 +34,15 @@ const userSchema = Schema({
   idCloudAvatar: {
     type: String,
     default: null
-  }
+  },
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verifyToken: {
+    type: String,
+    required: [true, 'Verify token is required'],
+  },
 })
 
 userSchema.methods.setPassword = function (password) {
